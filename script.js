@@ -1,6 +1,7 @@
 const myLibrary = [];
 
 const library = document.querySelector(".library");
+const bookForm = document.getElementById("book-form");
 
 function Book(name, author, pages, read) {
   this.name = name;
@@ -53,11 +54,7 @@ function showForm() {
   document.getElementById("book-form").style.display = "block";
 }
 
-function addBookToLibrary() {
-  const name = prompt("What is the name of the book?");
-  const author = prompt("Who is the book's author?");
-  const pages = prompt("How many pages is the book?");
-  const read = prompt("You have read the book: true or false?");
+function addBookToLibrary(name, author, pages, read) {
   const boolOutput = read.toLowerCase() === "true";
 
   const newBook = new Book(name, author, pages, boolOutput);
@@ -65,6 +62,22 @@ function addBookToLibrary() {
   myLibrary.push(newBook);
   displayBook(newBook);
 }
+
+bookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const newBookName = document.getElementById("book-name").value;
+  const newBookAuthor = document.getElementById("book-author").value;
+  const newBookPages = document.getElementById("book-pages").value;
+  const newBookRead = document.getElementById("book-read").value.toLowerCase();
+
+  if (newBookRead !== "true" && newBookRead !== "false") {
+    // throw error
+  } else {
+    // handle submit
+    addBookToLibrary(newBookName, newBookAuthor, newBookPages, newBookRead);
+  }
+});
 
 myLibrary.forEach((book) => {
   displayBook(book);
