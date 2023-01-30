@@ -3,11 +3,12 @@ const myLibrary = [];
 const library = document.querySelector(".library");
 const bookForm = document.getElementById("book-form");
 
-function Book(name, author, pages, read) {
+function Book(name, author, pages, read, index) {
   this.name = name;
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.index = index;
 }
 
 Book.prototype.info = function () {
@@ -21,14 +22,21 @@ Book.prototype.info = function () {
 };
 
 myLibrary.push(
-  new Book("How to change your mind", "Michael Pollan", 469, true)
+  new Book("How to change your mind", "Michael Pollan", 469, true, 0)
 );
-myLibrary.push(new Book("Drug use for grown ups", "Carl Hart", 304, false));
-myLibrary.push(new Book("Dopamine Nation", "Anna Lembke", 266, false));
+myLibrary.push(new Book("Drug use for grown ups", "Carl Hart", 304, false, 1));
+myLibrary.push(new Book("Dopamine Nation", "Anna Lembke", 266, false, 2));
+
+function removeBook(index) {
+  const book = document.getElementById(`book${index}`);
+  book.remove();
+  myLibrary.splice(index, 1);
+}
 
 function displayBook(book) {
   const card = document.createElement("div");
   card.classList.add("card");
+  card.setAttribute("id", `book${book.index}`);
 
   const name = document.createElement("p");
   name.textContent = `Title: ${book.name}`;
@@ -42,10 +50,16 @@ function displayBook(book) {
   const read = document.createElement("p");
   read.textContent = `Read: ${book.read}`;
 
+  const delButton = document.createElement("button");
+  delButton.setAttribute("id", `button${book.index}`);
+  delButton.textContent = "Delete Book";
+  delButton.addEventListener("click", removeBook.bind(this, book.index));
+
   card.appendChild(name);
   card.appendChild(author);
   card.appendChild(pages);
   card.appendChild(read);
+  card.appendChild(delButton);
 
   library.appendChild(card);
 }
@@ -54,10 +68,11 @@ function showForm() {
   document.getElementById("book-form").style.display = "block";
 }
 
-function addBookToLibrary(name, author, pages, read) {
+function addBookToLibrary(name, author, pages, read, index) {
   const boolOutput = read.toLowerCase() === "true";
+  const data = myLibrary.length;
 
-  const newBook = new Book(name, author, pages, boolOutput);
+  const newBook = new Book(name, author, pages, boolOutput, index);
 
   myLibrary.push(newBook);
   displayBook(newBook);
