@@ -1,5 +1,7 @@
 const myLibrary = [];
 
+const library = document.querySelector(".library");
+
 function Book(name, author, pages, read) {
   this.name = name;
   this.author = author;
@@ -30,5 +32,36 @@ function addBookToLibrary() {
   const read = prompt("You have read the book: true or false?");
   const boolOutput = read.toLowerCase() === "true";
 
-  myLibrary.push(new Book(name, author, pages, boolOutput));
+  const newBook = new Book(name, author, pages, boolOutput);
+
+  myLibrary.push(newBook);
+  displayBook(newBook);
 }
+
+function displayBook(book) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const name = document.createElement("p");
+  name.textContent = `Title: ${book.name}`;
+
+  const author = document.createElement("p");
+  author.textContent = `Author: ${book.author}`;
+
+  const pages = document.createElement("p");
+  pages.textContent = `Pages: ${book.pages}`;
+
+  const read = document.createElement("p");
+  read.textContent = `Read: ${book.read}`;
+
+  card.appendChild(name);
+  card.appendChild(author);
+  card.appendChild(pages);
+  card.appendChild(read);
+
+  library.appendChild(card);
+}
+
+myLibrary.forEach((book) => {
+  displayBook(book);
+});
