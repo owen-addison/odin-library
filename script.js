@@ -25,19 +25,6 @@ myLibrary.push(
 myLibrary.push(new Book("Drug use for grown ups", "Carl Hart", 304, false));
 myLibrary.push(new Book("Dopamine Nation", "Anna Lembke", 266, false));
 
-function addBookToLibrary() {
-  const name = prompt("What is the name of the book?");
-  const author = prompt("Who is the book's author?");
-  const pages = prompt("How many pages is the book?");
-  const read = prompt("You have read the book: true or false?");
-  const boolOutput = read.toLowerCase() === "true";
-
-  const newBook = new Book(name, author, pages, boolOutput);
-
-  myLibrary.push(newBook);
-  displayBook(newBook);
-}
-
 function displayBook(book) {
   const card = document.createElement("div");
   card.classList.add("card");
@@ -60,6 +47,23 @@ function displayBook(book) {
   card.appendChild(read);
 
   library.appendChild(card);
+}
+
+function showForm() {
+  document.getElementById("book-form").style.display = "block";
+}
+
+function addBookToLibrary() {
+  const name = prompt("What is the name of the book?");
+  const author = prompt("Who is the book's author?");
+  const pages = prompt("How many pages is the book?");
+  const read = prompt("You have read the book: true or false?");
+  const boolOutput = read.toLowerCase() === "true";
+
+  const newBook = new Book(name, author, pages, boolOutput);
+
+  myLibrary.push(newBook);
+  displayBook(newBook);
 }
 
 myLibrary.forEach((book) => {
