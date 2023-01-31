@@ -3,6 +3,7 @@ const myLibrary = [];
 const library = document.querySelector(".library");
 const bookForm = document.getElementById("book-form");
 
+// Book object constructor
 function Book(name, author, pages, read, index) {
   this.name = name;
   this.author = author;
@@ -11,28 +12,27 @@ function Book(name, author, pages, read, index) {
   this.index = index;
 }
 
-Book.prototype.info = function () {
-  let text;
-  if (this.read === true) {
-    text = "have read.";
-  } else if (this.read === false) {
-    text = "not read yet.";
-  }
-  console.log(`${this.name} by ${this.author}, pages, ${text}`);
-};
-
+// Manually entered books to start library
 myLibrary.push(
   new Book("How to change your mind", "Michael Pollan", 469, true, 0)
 );
 myLibrary.push(new Book("Drug use for grown ups", "Carl Hart", 304, false, 1));
 myLibrary.push(new Book("Dopamine Nation", "Anna Lembke", 266, false, 2));
 
+// Function for removing book from library array and display
 function removeBook(index) {
   const book = document.getElementById(`book${index}`);
   book.remove();
   myLibrary.splice(index, 1);
+
+  myLibrary.forEach((item) => {
+    const number = myLibrary.indexOf(item);
+    const bookObj = item;
+    bookObj.index = number;
+  });
 }
 
+// Function for displaying book
 function displayBook(book) {
   const card = document.createElement("div");
   card.classList.add("card");
@@ -64,10 +64,12 @@ function displayBook(book) {
   library.appendChild(card);
 }
 
+// Function for showing form for entering new book details
 function showForm() {
   document.getElementById("book-form").style.display = "block";
 }
 
+// Function for adding book to library
 function addBookToLibrary(name, author, pages, read, index) {
   const boolOutput = read.toLowerCase() === "true";
   const data = myLibrary.length;
@@ -78,6 +80,7 @@ function addBookToLibrary(name, author, pages, read, index) {
   displayBook(newBook);
 }
 
+// Event listener for submit button, for adding new book to library
 bookForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -94,6 +97,7 @@ bookForm.addEventListener("submit", (e) => {
   }
 });
 
+// Loop for initially displaying books in library when loading page
 myLibrary.forEach((book) => {
   displayBook(book);
 });
