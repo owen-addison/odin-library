@@ -21,8 +21,8 @@ myLibrary.push(new Book("Dopamine Nation", "Anna Lembke", 266, false, 2));
 
 // Function for removing book from library array and display
 function removeBook(index) {
-  const book = document.getElementById(`book${index}`);
-  book.remove();
+  //   const book = document.getElementById(`book${index}`);
+  //   book.remove();
   myLibrary.splice(index, 1);
 
   myLibrary.forEach((item) => {
@@ -30,38 +30,55 @@ function removeBook(index) {
     const bookObj = item;
     bookObj.index = number;
   });
+
+  displayBooks();
 }
 
-// Function for displaying book
-function displayBook(book) {
-  const card = document.createElement("div");
-  card.classList.add("card");
-  card.setAttribute("id", `book${book.index}`);
+// DISPLAY BOOKS
+function displayBooks() {
+  // Delete all existing books
+  const oldBooks = document.querySelectorAll(".card");
+  oldBooks.forEach((book) => book.remove());
 
-  const name = document.createElement("p");
-  name.textContent = `Title: ${book.name}`;
+  // Display new books
+  myLibrary.forEach((book) => {
+    // Create new div with class "card" and add unique id
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.setAttribute("id", `book${book.index}`);
 
-  const author = document.createElement("p");
-  author.textContent = `Author: ${book.author}`;
+    // Display book name
+    const name = document.createElement("p");
+    name.textContent = `Title: ${book.name}`;
 
-  const pages = document.createElement("p");
-  pages.textContent = `Pages: ${book.pages}`;
+    // Display book author
+    const author = document.createElement("p");
+    author.textContent = `Author: ${book.author}`;
 
-  const read = document.createElement("p");
-  read.textContent = `Read: ${book.read}`;
+    // Display number of pages
+    const pages = document.createElement("p");
+    pages.textContent = `Pages: ${book.pages}`;
 
-  const delButton = document.createElement("button");
-  delButton.setAttribute("id", `button${book.index}`);
-  delButton.textContent = "Delete Book";
-  delButton.addEventListener("click", removeBook.bind(this, book.index));
+    // Display whether or not it has been read
+    const read = document.createElement("p");
+    read.textContent = `Read: ${book.read}`;
 
-  card.appendChild(name);
-  card.appendChild(author);
-  card.appendChild(pages);
-  card.appendChild(read);
-  card.appendChild(delButton);
+    // Add delete button for removing book
+    const delButton = document.createElement("button");
+    delButton.setAttribute("id", `button${book.index}`);
+    delButton.textContent = "Delete Book";
+    delButton.addEventListener("click", removeBook.bind(this, book.index));
 
-  library.appendChild(card);
+    // Append the elements to the card element
+    card.appendChild(name);
+    card.appendChild(author);
+    card.appendChild(pages);
+    card.appendChild(read);
+    card.appendChild(delButton);
+
+    // Append the card element to the library
+    library.appendChild(card);
+  });
 }
 
 // Function for showing form for entering new book details
@@ -77,7 +94,7 @@ function addBookToLibrary(name, author, pages, read, index) {
   const newBook = new Book(name, author, pages, boolOutput, index);
 
   myLibrary.push(newBook);
-  displayBook(newBook);
+  displayBooks();
 }
 
 // Event listener for submit button, for adding new book to library
@@ -94,10 +111,11 @@ bookForm.addEventListener("submit", (e) => {
   } else {
     // handle submit
     addBookToLibrary(newBookName, newBookAuthor, newBookPages, newBookRead);
+    bookForm.style.display = "none";
   }
 });
 
-// Loop for initially displaying books in library when loading page
+// Loop for initially displaying books in library when loading pag;
 myLibrary.forEach((book) => {
-  displayBook(book);
+  displayBooks();
 });
