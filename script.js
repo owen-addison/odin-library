@@ -19,21 +19,6 @@ myLibrary.push(
 myLibrary.push(new Book("Drug use for grown ups", "Carl Hart", 304, false, 1));
 myLibrary.push(new Book("Dopamine Nation", "Anna Lembke", 266, false, 2));
 
-// Function for removing book from library array and display
-function removeBook(index) {
-  //   const book = document.getElementById(`book${index}`);
-  //   book.remove();
-  myLibrary.splice(index, 1);
-
-  myLibrary.forEach((item) => {
-    const number = myLibrary.indexOf(item);
-    const bookObj = item;
-    bookObj.index = number;
-  });
-
-  displayBooks();
-}
-
 // DISPLAY BOOKS
 function displayBooks() {
   // Delete all existing books
@@ -67,7 +52,23 @@ function displayBooks() {
     const delButton = document.createElement("button");
     delButton.setAttribute("id", `button${book.index}`);
     delButton.textContent = "Delete Book";
-    delButton.addEventListener("click", removeBook.bind(this, book.index));
+
+    // Add function on click of button to remove book from library
+    delButton.addEventListener("click", () => {
+      const { index } = book;
+
+      // Remove book object from array
+      myLibrary.splice(index, 1);
+
+      // Renumber the index property of each book item for each library item
+      myLibrary.forEach((item) => {
+        const number = myLibrary.indexOf(item);
+        const bookObj = item;
+        bookObj.index = number;
+      });
+
+      displayBooks();
+    });
 
     // Append the elements to the card element
     card.appendChild(name);
