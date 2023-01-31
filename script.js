@@ -14,14 +14,11 @@ function Book(name, author, pages, read, index) {
 
 // Declare toggle function for have read on Book prototype
 Book.prototype.toggleRead = function () {
-  console.log(this.read);
   if (this.read === true) {
     this.read = false;
   } else if (this.read === false) {
     this.read = true;
   }
-
-  //   displayBooks();
 };
 
 // Manually entered books to start library
@@ -119,10 +116,9 @@ function showForm() {
 
 // Function for adding book to library
 function addBookToLibrary(name, author, pages, read, index) {
-  const boolOutput = read.toLowerCase() === "true";
   const data = myLibrary.length;
 
-  const newBook = new Book(name, author, pages, boolOutput, index);
+  const newBook = new Book(name, author, pages, read, index);
 
   myLibrary.push(newBook);
   displayBooks();
@@ -135,15 +131,10 @@ bookForm.addEventListener("submit", (e) => {
   const newBookName = document.getElementById("book-name").value;
   const newBookAuthor = document.getElementById("book-author").value;
   const newBookPages = document.getElementById("book-pages").value;
-  const newBookRead = document.getElementById("book-read").value.toLowerCase();
+  const newBookRead = document.getElementById("book-read").checked;
 
-  if (newBookRead !== "true" && newBookRead !== "false") {
-    // throw error
-  } else {
-    // handle submit
-    addBookToLibrary(newBookName, newBookAuthor, newBookPages, newBookRead);
-    bookForm.style.display = "none";
-  }
+  addBookToLibrary(newBookName, newBookAuthor, newBookPages, newBookRead);
+  bookForm.style.display = "none";
 });
 
 // Loop for initially displaying books in library when loading pag;
