@@ -12,6 +12,18 @@ function Book(name, author, pages, read, index) {
   this.index = index;
 }
 
+// Declare toggle function for have read on Book prototype
+Book.prototype.toggleRead = function () {
+  console.log(this.read);
+  if (this.read === true) {
+    this.read = false;
+  } else if (this.read === false) {
+    this.read = true;
+  }
+
+  displayBooks();
+};
+
 // Manually entered books to start library
 myLibrary.push(
   new Book("How to change your mind", "Michael Pollan", 469, true, 0)
@@ -48,6 +60,12 @@ function displayBooks() {
     const read = document.createElement("p");
     read.textContent = `Read: ${book.read}`;
 
+    // Add checkbox for toggling read
+    const toggle = document.createElement("input");
+    toggle.classList.add("toggle");
+    toggle.setAttribute("id", `toggle${book.index}`);
+    toggle.setAttribute("type", "checkbox");
+
     // Add delete button for removing book
     const delButton = document.createElement("button");
     delButton.setAttribute("id", `button${book.index}`);
@@ -75,6 +93,7 @@ function displayBooks() {
     card.appendChild(author);
     card.appendChild(pages);
     card.appendChild(read);
+    card.appendChild(toggle);
     card.appendChild(delButton);
 
     // Append the card element to the library
