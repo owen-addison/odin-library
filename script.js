@@ -21,7 +21,7 @@ Book.prototype.toggleRead = function () {
     this.read = true;
   }
 
-  displayBooks();
+  //   displayBooks();
 };
 
 // Manually entered books to start library
@@ -65,6 +65,17 @@ function displayBooks() {
     toggle.classList.add("toggle");
     toggle.setAttribute("id", `toggle${book.index}`);
     toggle.setAttribute("type", "checkbox");
+    // Check or uncheck checkbox depending on read value for object
+    if (book.read === true) {
+      toggle.checked = true;
+    } else if (book.read === false) {
+      toggle.read = false;
+    }
+    // Add event listener for change of toggle
+    toggle.addEventListener("change", () => {
+      book.toggleRead();
+      displayBooks();
+    });
 
     // Add delete button for removing book
     const delButton = document.createElement("button");
