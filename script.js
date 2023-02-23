@@ -118,7 +118,7 @@ function showForm() {
 function addBookToLibrary(name, author, pages, read, index) {
   const data = myLibrary.length;
 
-  const newBook = new Book(name, author, pages, read, index);
+  const newBook = new Book(name, author, pages, read, data);
 
   myLibrary.push(newBook);
   displayBooks();
