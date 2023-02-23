@@ -3,6 +3,12 @@ const myLibrary = [];
 const library = document.querySelector(".library");
 const bookForm = document.getElementById("book-form");
 
+const bookTitle = document.getElementById("book-name");
+const bookAuthor = document.getElementById("book-author");
+
+const titleError = document.getElementById("title-error");
+const authorError = document.getElementById("author-error");
+
 /*
 ________________BOOK CLASS________________
 */
@@ -137,11 +143,72 @@ function addBookToLibrary(name, author, pages, read, index) {
 }
 
 /*
+________________ERROR LOGIC________________
+*/
+function showError() {
+  if (bookTitle.validity.valueMissing) {
+    // If the field is empty,
+    // display the following error message.
+    titleError.textContent = "Please enter the book title";
+  } else if (bookAuthor.validity.valueMissing) {
+    authorError.textContent = "Please enter the book author";
+  }
+
+  // Set the styling appropriately
+  titleError.className = "error active";
+}
+
+/*
 ________________FORM LOGIC________________
 */
+bookTitle.addEventListener("input", (e) => {
+  // Each time the user types something, we check if the
+  // form fields are valid.
+
+  if (bookTitle.validity.valid) {
+    // In case there is an error message visible, if the field
+    // is valid, we remove the error message.
+    titleError.textContent = ""; // Reset the content of the message
+    titleError.className = "error"; // Reset the visual state of the message
+  } else {
+    // If there is still an error, show the correct error
+    showError();
+  }
+});
+
+bookAuthor.addEventListener("input", (e) => {
+  // Each time the user types something, we check if the
+  // form fields are valid.
+
+  if (bookTitle.validity.valid) {
+    // In case there is an error message visible, if the field
+    // is valid, we remove the error message.
+    titleError.textContent = ""; // Reset the content of the message
+    titleError.className = "error"; // Reset the visual state of the message
+  } else {
+    // If there is still an error, show the correct error
+    console.log("author input");
+    showError();
+  }
+});
+
 // Event listener for submit button, for adding new book to library
 bookForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  console.log("error");
+
+  // if the email field is valid, we let the form submit
+  if (!bookTitle.validity.valid) {
+    // If it isn't, we display an appropriate error message
+    showError();
+    // Then we prevent the form from being sent by canceling the event
+    e.preventDefault();
+  } else if (!bookAuthor.validity.valid) {
+    // If it isn't, we display an appropriate error message
+    showError();
+    // Then we prevent the form from being sent by canceling the event
+    e.preventDefault();
+  }
 
   const newBookName = document.getElementById("book-name").value;
   const newBookAuthor = document.getElementById("book-author").value;
