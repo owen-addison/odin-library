@@ -2,12 +2,15 @@ const myLibrary = [];
 
 const library = document.querySelector(".library");
 const bookForm = document.getElementById("book-form");
+const formBg = document.getElementById("form-bg");
 
 const bookTitle = document.getElementById("book-name");
 const bookAuthor = document.getElementById("book-author");
 
 const titleError = document.getElementById("title-error");
 const authorError = document.getElementById("author-error");
+
+// document.removeChild(formBg);
 
 /*
 ________________BOOK CLASS________________
@@ -129,7 +132,7 @@ function displayBooks() {
 
 // Function for showing form for entering new book details
 function showForm() {
-  document.getElementById("book-form").style.display = "block";
+  formBg.className = "formBg";
 }
 
 // Function for adding book to library
@@ -150,12 +153,15 @@ function showError() {
     // If the field is empty,
     // display the following error message.
     titleError.textContent = "Please enter the book title";
-  } else if (bookAuthor.validity.valueMissing) {
-    authorError.textContent = "Please enter the book author";
+    // Set the styling appropriately
+    titleError.className = "error active";
   }
 
-  // Set the styling appropriately
-  titleError.className = "error active";
+  if (bookAuthor.validity.valueMissing) {
+    authorError.textContent = "Please enter the book author";
+    // Set the styling appropriately
+    authorError.className = "error active";
+  }
 }
 
 /*
@@ -187,7 +193,14 @@ bookAuthor.addEventListener("input", (e) => {
     titleError.className = "error"; // Reset the visual state of the message
   } else {
     // If there is still an error, show the correct error
-    console.log("author input");
+    showError();
+  }
+
+  if (bookAuthor.validity.valid) {
+    authorError.textContent = ""; // Reset the content of the message
+    authorError.className = "error"; // Reset the visual state of the message
+  } else {
+    // If there is still an error, show the correct error
     showError();
   }
 });
@@ -195,7 +208,6 @@ bookAuthor.addEventListener("input", (e) => {
 // Event listener for submit button, for adding new book to library
 bookForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("error");
 
   // if the email field is valid, we let the form submit
   if (!bookTitle.validity.valid) {
@@ -208,15 +220,15 @@ bookForm.addEventListener("submit", (e) => {
     showError();
     // Then we prevent the form from being sent by canceling the event
     e.preventDefault();
+  } else {
+    const newBookName = document.getElementById("book-name").value;
+    const newBookAuthor = document.getElementById("book-author").value;
+    const newBookPages = document.getElementById("book-pages").value;
+    const newBookRead = document.getElementById("book-read").checked;
+
+    addBookToLibrary(newBookName, newBookAuthor, newBookPages, newBookRead);
+    formBg.className = "formBg hidden";
   }
-
-  const newBookName = document.getElementById("book-name").value;
-  const newBookAuthor = document.getElementById("book-author").value;
-  const newBookPages = document.getElementById("book-pages").value;
-  const newBookRead = document.getElementById("book-read").checked;
-
-  addBookToLibrary(newBookName, newBookAuthor, newBookPages, newBookRead);
-  bookForm.style.display = "none";
 });
 
 // Loop for initially displaying books in library when loading pag;
