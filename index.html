@@ -20,10 +20,12 @@
 
         <form action="" id="book-form" style="display: none;">
             <label for="book-name">Title:</label>
-            <input type="text" name="book-name" id="book-name">
+            <input type="text" name="book-name" id="book-name" required>
+            <span class="error" aria-live="polite" id="title-error"></span>
 
             <label for="book-author">Author:</label>
-            <input type="text" name="book-author" id="book-author">
+            <input type="text" name="book-author" id="book-author" required>
+            <span class="error" aria-live="polite" id="author-error"></span>
 
             <label for="book-pages">Pages:</label>
             <input type="text" name="book-pages" id="book-pages">
