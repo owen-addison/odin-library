@@ -3,23 +3,26 @@ const myLibrary = [];
 const library = document.querySelector(".library");
 const bookForm = document.getElementById("book-form");
 
-// Book object constructor
-function Book(name, author, pages, read, index) {
-  this.name = name;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.index = index;
-}
-
-// Declare toggle function for have read on Book prototype
-Book.prototype.toggleRead = function () {
-  if (this.read === true) {
-    this.read = false;
-  } else if (this.read === false) {
-    this.read = true;
+// Book class
+class Book {
+  // Constructor method for new object
+  constructor(name, author, pages, read, index) {
+    this.name = name;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.index = index;
   }
-};
+
+  // Method for setting read status on object
+  toggleRead() {
+    if (this.read === true) {
+      this.read = false;
+    } else if (this.read === false) {
+      this.read = true;
+    }
+  }
+}
 
 // Manually entered books to start library
 myLibrary.push(
