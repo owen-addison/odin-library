@@ -3,6 +3,9 @@ const myLibrary = [];
 const library = document.querySelector(".library");
 const bookForm = document.getElementById("book-form");
 
+/*
+________________BOOK CLASS________________
+*/
 // Book class
 class Book {
   // Constructor method for new object
@@ -24,6 +27,9 @@ class Book {
   }
 }
 
+/*
+________________INIT LIBRARY________________
+*/
 // Manually entered books to start library
 myLibrary.push(
   new Book("How to change your mind", "Michael Pollan", 469, true, 0)
@@ -31,6 +37,9 @@ myLibrary.push(
 myLibrary.push(new Book("Drug use for grown ups", "Carl Hart", 304, false, 1));
 myLibrary.push(new Book("Dopamine Nation", "Anna Lembke", 266, false, 2));
 
+/*
+________________DOM MANIPULATION________________
+*/
 // DISPLAY BOOKS
 function displayBooks() {
   // Delete all existing books
@@ -127,6 +136,9 @@ function addBookToLibrary(name, author, pages, read, index) {
   displayBooks();
 }
 
+/*
+________________FORM LOGIC________________
+*/
 // Event listener for submit button, for adding new book to library
 bookForm.addEventListener("submit", (e) => {
   e.preventDefault();
