@@ -18,23 +18,45 @@
             <button onclick="showForm()" id="add-book">Add Book</button>
         </div>
 
-        <form action="" id="book-form" style="display: none;">
-            <label for="book-name">Title:</label>
-            <input type="text" name="book-name" id="book-name" required>
-            <span class="error" aria-live="polite" id="title-error"></span>
-
-            <label for="book-author">Author:</label>
-            <input type="text" name="book-author" id="book-author" required>
-            <span class="error" aria-live="polite" id="author-error"></span>
-
-            <label for="book-pages">Pages:</label>
-            <input type="text" name="book-pages" id="book-pages">
-
-            <label for="book-read">Read (true or false):</label>
-            <input type="checkbox" name="book-read" id="book-read">
-
-            <button type="submit" id="submit">Submit</button>
-        </form>
+        <div id="form-bg" class="formBg hidden">
+          <form novalidate action="" id="book-form" class="form">
+              <h2>Book Details:</h2>
+              <div class="form-container">
+                <div class="row">
+                  <label for="book-name">Title:</label>
+                  <div class="input-container">
+                    <input type="text" name="book-name" id="book-name" required>
+                    <span class="error" aria-live="polite" id="title-error"></span>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <label for="book-author">Author:</label>
+                  <div class="input-container">
+                    <input type="text" name="book-author" id="book-author" required>
+                    <span class="error" aria-live="polite" id="author-error"></span>
+                  </div>
+                </div>
+    
+                <div class="row">
+                  <label for="book-pages">Pages:</label>
+                  <div class="input-container">
+                    <input type="text" name="book-pages" id="book-pages">
+                    <span></span>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <label for="book-read">Read (true or false):</label>
+                  <div class="input-container">
+                    <input type="checkbox" name="book-read" id="book-read">
+                  </div>
+                </div>
+              </div>
+  
+              <button type="submit" id="submit">Submit</button>
+          </form>
+        </div>
     </div>
   </body>
 </html>
